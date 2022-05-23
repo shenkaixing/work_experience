@@ -1,10 +1,12 @@
-package com.alibaba.dingtalk.diylearn.spirng.aop.rt;
+package com.wudong.diy.spirng.aop.rt;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
+
+import cn.hutool.core.date.DateUnit;
 
 /**
  * 定义方法rt注解
@@ -16,4 +18,6 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface RecordMethodInvokeTime {
+    // 这里需要传入记录时间的单位，可以秒、分、小时来记录时间。
+    DateUnit value();
 }
