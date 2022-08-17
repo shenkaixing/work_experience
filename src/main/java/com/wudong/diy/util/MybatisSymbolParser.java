@@ -6,7 +6,7 @@ package com.wudong.diy.util;
  * @author 兰崖
  * @date 2022/6/9 9:12 下午
  */
-public class Parser {
+public class MybatisSymbolParser {
     /**
      * 将字符串text中由openToken和closeToken组成的占位符依次替换为args数组中的值
      *
@@ -86,13 +86,13 @@ public class Parser {
 
     public static String parse0(String text, Object... args) {
 
-        return Parser.parse("${", "}", text, args);
+        return MybatisSymbolParser.parse("${", "}", text, args);
 
     }
 
     public static String parse1(String text, Object... args) {
 
-        return Parser.parse("{", "}", text, args);
+        return MybatisSymbolParser.parse("{", "}", text, args);
 
     }
 
@@ -108,7 +108,7 @@ public class Parser {
 
         //System.out.println(Parser.parse("{", "}", "我的名字是\\{},结果是{}，可信度是%{}", "雷锋", true, 100));
 
-        System.out.println(Parser.parse0("我的名字是${name},结果是${}，可信度是${}%", "雷锋", true, 100));
+        System.out.println(MybatisSymbolParser.parse0("我的名字是${name},结果是${}，可信度是${}%", "雷锋", true, 100));
 
         //System.out.println(Parser.parse1("我的名字是{},结果是{}，可信度是%{}", "雷锋", true, 100));
 
