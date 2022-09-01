@@ -49,16 +49,16 @@ public class RecordMethodInvokeTimeAspect {
      */
     @Around(value = POINTCUT, argNames = "proceedingJoinPoint, recordMethodInvokeTime")
     public Object recordMethodInvokeTimeAspect(ProceedingJoinPoint proceedingJoinPoint,
-        RecordMethodInvokeTime recordMethodInvokeTime) {
+        RecordMethodInvokeTime recordMethodInvokeTime) throws Throwable {
 
         Date startTime = new Date();
         String methodName = proceedingJoinPoint.getSignature().getName();
         Object result = null;
-        try {
+       // try {
             result = proceedingJoinPoint.proceed();
-        } catch (Throwable throwable) {
-            log.error("[{}] invoke failed.", methodName, throwable);
-        }
+        //} catch (Throwable throwable) {
+        //    log.error("[{}] invoke failed.", methodName, throwable);
+        //}
 
         Date endTime = new Date();
         DateBetween dateBetween = DateBetween.create(startTime, endTime);
