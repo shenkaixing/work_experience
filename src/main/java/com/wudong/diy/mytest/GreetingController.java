@@ -4,8 +4,13 @@ import java.util.concurrent.atomic.AtomicLong;
 
 import cn.hutool.core.date.DateUnit;
 import cn.hutool.json.JSONObject;
+import com.wudong.diy.es.service.EsRepository;
 import com.wudong.diy.spirng.aop.rt.RecordMethodInvokeTime;
 import com.wudong.diy.spirng.enable.RetryService;
+import org.elasticsearch.action.index.IndexResponse;
+import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.action.update.UpdateResponse;
+import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,6 +30,9 @@ public class GreetingController {
 
     @Autowired
     private RestTemplate restTemplate;
+
+    @Autowired
+    private EsRepository esRepository;
 
     @GetMapping("/greeting")
     public String greeting(@RequestParam(value = "name", defaultValue = "World") String name) {
@@ -47,6 +55,7 @@ public class GreetingController {
     @RecordMethodInvokeTime(value = DateUnit.MS)
     public String httpException() throws Exception {
         JSONObject postData = new JSONObject();
+
         ResponseEntity<JSONObject> responseEntity = restTemplate.getForEntity("http://www.vaeeeidu.com/eee", JSONObject.class,postData );
         return JSON.toJSONString(responseEntity.getBody());
     }
@@ -56,6 +65,27 @@ public class GreetingController {
     public String timeOut() throws Exception {
         Thread.sleep(10000000);
         return "ok";
+    }
+
+    @GetMapping("/es/queryFromSize")
+    public SearchResponse queryFromSizeEsData() throws Exception {
+        SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
+        return esRepository.queryPageSize(sourceBuilder);
+    }
+
+    @GetMapping("/es/searchAfter")
+    public SearchResponse searchAfterEsData() throws Exception {
+        return esRepository.searchAfter();
+    }
+
+    @GetMapping("/es/save")
+    public IndexResponse saveEsData() throws Exception {
+        return esRepository.save();
+    }
+
+    @GetMapping("/es/update")
+    public IndexResponse updateEsData() throws Exception {
+        return esRepository.update();
     }
 
 

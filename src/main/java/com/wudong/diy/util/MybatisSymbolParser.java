@@ -109,6 +109,7 @@ public class MybatisSymbolParser {
         //System.out.println(Parser.parse("{", "}", "我的名字是\\{},结果是{}，可信度是%{}", "雷锋", true, 100));
 
         System.out.println(MybatisSymbolParser.parse0("我的名字是${name},结果是${}，可信度是${}%", "雷锋", true, 100));
+        System.out.println(MybatisSymbolParser.parse1("/v2/members/{id}", "1"));
 
         //System.out.println(Parser.parse1("我的名字是{},结果是{}，可信度是%{}", "雷锋", true, 100));
 
