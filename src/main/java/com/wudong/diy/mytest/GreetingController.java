@@ -2,6 +2,8 @@ package com.wudong.diy.mytest;
 
 import java.util.concurrent.atomic.AtomicLong;
 
+import com.alibaba.fastjson.JSON;
+
 import cn.hutool.core.date.DateUnit;
 import cn.hutool.json.JSONObject;
 import com.wudong.diy.es.service.EsRepository;
@@ -9,7 +11,6 @@ import com.wudong.diy.spirng.aop.rt.RecordMethodInvokeTime;
 import com.wudong.diy.spirng.enable.RetryService;
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.search.SearchResponse;
-import org.elasticsearch.action.update.UpdateResponse;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +18,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
-import com.alibaba.fastjson.JSON;
 
 @RestController
 public class GreetingController {
@@ -87,6 +87,4 @@ public class GreetingController {
     public IndexResponse updateEsData() throws Exception {
         return esRepository.update();
     }
-
-
 }
