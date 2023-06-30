@@ -10,4 +10,9 @@ class DiyLearnApplicationTests {
     void contextLoads() {
     }
 
+    private void load(int age, String name, long birthday, boolean sex) {
+        System.out.println(age + name + birthday + sex);
+    }
+
+
 }

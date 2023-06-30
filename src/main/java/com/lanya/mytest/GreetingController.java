@@ -2,6 +2,8 @@ package com.lanya.mytest;
 
 import java.util.concurrent.atomic.AtomicLong;
 
+import javax.servlet.http.HttpSession;
+
 import com.alibaba.fastjson.JSON;
 
 import cn.hutool.core.date.DateUnit;
@@ -16,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
@@ -56,7 +59,8 @@ public class GreetingController {
     public String httpException() throws Exception {
         JSONObject postData = new JSONObject();
 
-        ResponseEntity<JSONObject> responseEntity = restTemplate.getForEntity("http://www.vaeeeidu.com/eee", JSONObject.class,postData );
+        ResponseEntity<JSONObject> responseEntity = restTemplate.getForEntity("http://www.vaeeeidu.com/eee",
+            JSONObject.class, postData);
         return JSON.toJSONString(responseEntity.getBody());
     }
 
@@ -86,6 +90,21 @@ public class GreetingController {
     @GetMapping("/es/update")
     public IndexResponse updateEsData() throws Exception {
         return esRepository.update();
+    }
+
+    @GetMapping("/setRedisSession")
+    public String setRedisSession(HttpSession httpSession) {
+        String data = "{\"name\":\"兰崖\",\"userId\":\"31789\"}";
+        httpSession.setAttribute("loginUser", data);
+        return "setRedisSession success...";
+    }
+
+    @GetMapping("/getRedisSession")
+    @ResponseBody
+    public Object getRedisSession(HttpSession httpSession) {
+        String data = "{\"name\":\"兰崖\",\"userId\":\"31789\"}";
+        Object loginUser = httpSession.getAttribute("loginUser");
+        return loginUser;
     }
 
 }
