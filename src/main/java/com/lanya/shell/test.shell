@@ -1,0 +1,17 @@
+#!/bin/bash
+#打印时间
+for time in morning noon afternoon evening
+	do
+		echo "This time is $time!"
+	done
+
+
+read -p "Please input a number: " -t 30 num
+#接收用户的输入，并把输入赋予变量num
+y=$ (echo $num | sed 's/[0-9]//g')
+#如果变量num 的值是数字，则把num的值替换为空，否则不替换
+#把替换之后的值赋予变量y
+[ -n "$y" ] && echo "Error! Please input a number!" && exit 18
+#判断变量y的值如果不为空，输出报错信息，退出脚本，退出返回值为18
+echo "The number is: $num"
+#如果没有退出加班，则打印变量num中的数字

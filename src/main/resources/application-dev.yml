@@ -1,0 +1,32 @@
+spring:
+  datasource:
+    #配置hikari连接池
+    hikari:
+      minimum-idle: 5
+      idle-timeout: 600000
+      maximum-pool-size: 10
+      auto-commit: true
+      max-lifetime: 1800000
+      connection-timeout: 30000
+      connection-test-query: SELECT 1
+    #动态数据源配置
+    dynamic:
+      #主数据源，默认启用
+      primary: test
+      datasource:
+        #数据源1
+        test:
+          driver-class-name: com.mysql.cj.jdbc.Driver
+          url: jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&characterEncoding=utf8&autoReconnect=true&useSSL=false
+          username: root
+          password: 123456
+        #数据源2
+        testMaster:
+          driver-class-name: com.mysql.cj.jdbc.Driver
+          url: jdbc:mysql://127.0.0.1:3306/test_master?useUnicode=true&characterEncoding=utf8&autoReconnect=true&useSSL=false
+          username: root
+          password: 123456
+
+mybatis-plus:
+  # 扫码 *Mapper.xml 路径
+  mapper-locations: classpath:/mapper/**.xml

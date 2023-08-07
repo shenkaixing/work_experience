@@ -1,0 +1,2 @@
+org.springframework.boot.env.EnvironmentPostProcessor=\
+  com.lanya.config.base64.Base64EnvironmentPostProcessor
