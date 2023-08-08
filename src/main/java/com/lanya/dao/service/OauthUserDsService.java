@@ -5,6 +5,7 @@ import javax.annotation.Resource;
 import com.alibaba.fastjson.JSON;
 
 import com.baomidou.dynamic.datasource.annotation.DS;
+import com.baomidou.dynamic.datasource.annotation.DSTransactional;
 import com.lanya.dao.entity.OauthAccount;
 import com.lanya.dao.entity.User;
 import com.lanya.dao.mapper.OauthAccountMapper;
@@ -49,9 +50,12 @@ public class OauthUserDsService {
      * @param userName
      * @return
      */
-    @DS("testMaster")
+    @DSTransactional
     public OauthAccount getAccountInfo(String clientId, String userName) {
         OauthAccount oauthAccount = oauthAccountMapper.loadUserByUsername(clientId, userName);
+        oauthAccountMapper.deleteById(1);
+        userMapper.deleteById(1);
+        oauthAccountMapper.insert(null);
         log.info("OauthUserDsService.getUserInfo:{}", JSON.toJSONString(oauthAccount));
         return oauthAccount;
     }
