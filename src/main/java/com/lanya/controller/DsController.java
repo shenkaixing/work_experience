@@ -1,12 +1,12 @@
 package com.lanya.controller;
 
-import javax.annotation.Resource;
+import com.alibaba.fastjson.JSON;
 
-import com.baomidou.dynamic.datasource.annotation.DS;
 import com.lanya.dao.entity.OauthAccount;
 import com.lanya.dao.entity.User;
-import com.lanya.dao.mapper.OauthAccountMapper;
-import com.lanya.dao.mapper.UserMapper;
+import com.lanya.dao.service.OauthUserDsService;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,26 +18,34 @@ import org.springframework.web.bind.annotation.RestController;
  * @date 2023/8/7 11:18 下午
  */
 @RestController
+@Slf4j
 public class DsController {
 
-    @Resource
-    private OauthAccountMapper oauthAccountMapper;
-
-    @Resource
-    private UserMapper userMapper;
-
+    @Autowired
+    private OauthUserDsService oauthUserDsService;
+    /**
+     * http://localhost:8089/db/test/userInfo?code=lanya
+     * @param code
+     * @return
+     */
     @GetMapping("/db/test/userInfo")
-    //@DS("test")
     public User getUserInfo(@RequestParam(value = "code") String code) {
-        User user = userMapper.loadUserByCode(code);
+        User user = oauthUserDsService.getUserInfo(code);
+        log.info("DsController.getUserInfo:{}", JSON.toJSONString(user));
         return user;
     }
 
+    /**
+     * http://localhost:8089/db/testMaster/accountInfo?userName=lanya&clientId=ABC
+     * @param clientId
+     * @param userName
+     * @return
+     */
     @GetMapping("/db/testMaster/accountInfo")
-    //@DS("testMaster")
     public OauthAccount getAccountInfo(@RequestParam(value = "clientId") String clientId,
         @RequestParam(value = "userName") String userName) {
-        OauthAccount oauthAccount = oauthAccountMapper.loadUserByUsername(clientId, userName);
+        OauthAccount oauthAccount = oauthUserDsService.getAccountInfo(clientId, userName);
+        log.info("DsController.getUserInfo:{}", JSON.toJSONString(oauthAccount));
         return oauthAccount;
     }
 
