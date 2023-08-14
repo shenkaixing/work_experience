@@ -11,7 +11,7 @@ import org.springframework.session.data.redis.config.annotation.web.http.EnableR
 @EnableRetry
 @EnableAsync
 @MapperScan("com.lanya.dao.mapper")
-@EnableRedisHttpSession
+//@EnableRedisHttpSession
 @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
 public class DiyLearnApplication {
 

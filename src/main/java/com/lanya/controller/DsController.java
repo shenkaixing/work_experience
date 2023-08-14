@@ -1,10 +1,14 @@
 package com.lanya.controller;
 
+import java.util.List;
+
 import com.alibaba.fastjson.JSON;
 
 import com.lanya.dao.entity.OauthAccount;
 import com.lanya.dao.entity.User;
+import com.lanya.dao.service.DeptService;
 import com.lanya.dao.service.OauthUserDsService;
+import com.lanya.dao.vo.DeptVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +27,10 @@ public class DsController {
 
     @Autowired
     private OauthUserDsService oauthUserDsService;
+    @Autowired
+    private DeptService deptService;
+
+
     /**
      * http://localhost:8089/db/test/userInfo?code=lanya
      * @param code
@@ -47,6 +55,13 @@ public class DsController {
         OauthAccount oauthAccount = oauthUserDsService.getAccountInfo(clientId, userName);
         log.info("DsController.getUserInfo:{}", JSON.toJSONString(oauthAccount));
         return oauthAccount;
+    }
+
+    @GetMapping("/db/test/buildDeptTree")
+    public List<DeptVO> buildDeptTree() {
+        List<DeptVO> deptVOList = deptService.buildDeptTree();
+        log.info("DsController.buildDeptTree:{}", JSON.toJSONString(deptVOList));
+        return deptVOList;
     }
 
 }
