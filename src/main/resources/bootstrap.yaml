@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: work
+  profiles:
+    active: test
+  cloud:
+    nacos:
+      username: nacos
+      password: nacos
+      server-addr: 127.0.0.1:8848
+      discovery:
+        namespace: nacos-dev
+      config:
+        namespace: nacos-dev
+        timeout: 3000
+        refresh-enabled: true
+        group: dev
+#        prefix: ${spring.application.name}
+        file-extension: yaml
+
+logging:
+  level:
+    root: info

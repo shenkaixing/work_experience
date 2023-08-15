@@ -1,4 +1,6 @@
 spring:
+  profiles:
+    incluede: session
   datasource:
     #配置hikari连接池
     hikari:
